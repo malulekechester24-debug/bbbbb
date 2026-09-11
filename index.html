@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chester Logistics Pty Ltd</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;overflow-x:hidden;background:#f2f2f2;font-family:Arial,sans-serif}
+.top-menu-btn{position:fixed;top:18px;right:18px;z-index:9999;padding:10px 20px;background:#ff5722;border-radius:60px;border:none;color:white;font-weight:900;cursor:pointer;box-shadow:0 5px 20px rgba(255,87,34,0.5)}
+.sidebar{position:fixed;top:0;right:-320px;width:300px;height:100vh;z-index:10000;transition:0.4s;background:#111;padding:25px 20px;overflow-y:auto}
+.sidebar.active{right:0}
+.sidebar .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;border-bottom:1px solid #333;padding-bottom:15px;color:white}
+.sidebar a{display:block;padding:14px 15px;margin:10px 0;background:#1f1f1f;color:#fff;text-decoration:none;border-radius:10px;font-weight:bold}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9998;display:none}
+.overlay.active{display:block}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 20px 60px;background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.85)),url('https://secure-web.cisco.com/1QgSk_QtuFccbzEe-hBmeFJupIvb3Q89bpByJxJB7JMNugjcug8AOTDVo6ZcgPibo2f_BQnRDkX-vRPMqZAYztIWOKE9r_BQ2ZnWSonHpo8b6vcE6Naj-SXcu_pHicjsALG_cAiRnptj3o9sjFFfXo-NhkYyRos7NfgHLPnuzBvUPdsRMewjyoCy2eFyfCkZfBVzv-bgTvj2FC5nJhrihRu99lSyxKF6skX5y6-hZQmwVh1JdnBhkqZ7-BkA0tTih6-cBS4C1RnTEGL3x3tm9bEZkuUMiZJUxPtpzYviOjHoTDA15skup-u9xB3tW4zKb-KtOaPK7P9G5eyhUl4OuLUshaBGTnJhkEBx-bHRPuv4/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1586528116311-ad8dd3c8310d%3Fauto%3Dformat%26fit%3Dcrop%26w%3D1950%26q%3D80%27%29%3Bbackground-size%3Acover%3Bbackground-position%3Acenter%3Bcolor%3Awhite%3Bwidth%3A100%25')};
+.hero h1{color:#FF6A00;font-size:clamp(28px,6vw,58px);font-weight:900;background:rgba(0,0,0,0.65);padding:18px 25px;border-radius:14px;border:2px solid rgba(255,106,0,0.4);line-height:1.1;max-width:100%}
+.hero .sub{margin-top:18px;font-size:17px;color:#e0e0e0;max-width:700px;line-height:1.6}
+.hero-buttons{margin-top:35px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn-quote{background:#ff5722;color:white;padding:14px 24px;border-radius:50px;text-decoration:none;font-weight:bold;display:inline-block}
+.btn-track{border:2px solid white;color:white;padding:12px 22px;border-radius:50px;text-decoration:none;font-weight:bold;display:inline-block}
+.btn-call{background:#25D366;color:white;padding:14px 24px;border-radius:50px;text-decoration:none;font-weight:bold;display:inline-block}
+.stats{margin-top:40px;display:flex;gap:20px;flex-wrap:wrap;justify-content:center;color:#ccc;font-size:13px}
+.wrap{max-width:1100px;margin:auto;padding:30px 15px;width:100%}
+.title{text-align:center;font-size:30px;color:#2c3e50;font-weight:bold;text-decoration:underline;margin:50px 0 25px}
+.about-card{background:white;padding:22px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.08);border-left:5px solid #ff7a3d;margin-bottom:18px;width:100%}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;width:100%}
+.service-card{background:white;padding:22px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);border-left:4px solid #ff7043;width:100%}
+.quote-box{background:linear-gradient(90deg,#e65100,#ff8a65);padding:35px 20px;border-radius:14px;text-align:center;color:white;margin:30px 0;width:100%}
+.btn-white{background:white;color:#e65100;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;margin-top:15px}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:20px;width:100%}
+.info-box,.visit-box{background:white;padding:20px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);border-left:4px solid #ff7043;width:100%}
+.map{width:100%;height:400px;border:2px solid #ff7043;border-radius:10px;margin-top:10px}
+.gallery{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;max-width:1250px;margin:auto;padding:0 15px;width:100%}
+.g-card{background:#1e293b;border-radius:16px;overflow:hidden;border:1px solid #334155;width:100%}
+.g-card img{width:100%;height:200px;object-fit:cover;display:block}
+.info-bar{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:16px;max-width:1250px;margin:20px auto;padding:0 15px;width:100%}
+.main-footer{background:#0f172a;color:white;padding:40px 0 0 0;margin-top:40px;border-top:3px solid #ff6a00;width:100%;box-sizing:border-box}
+.footer-container{max-width:1250px;margin:auto;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:30px;padding:0 20px;width:100%}
+.footer-col h4{color:#fff;font-size:18px;margin-bottom:10px}
+.footer-col .line{display:block;width:35px;height:2px;background:#ff6a00;margin-bottom:15px}
+.footer-col p,.footer-col a{font-size:14px;line-height:1.7;color:#cbd5e1;text-decoration:none}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:10px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);margin-top:30px;padding:18px 20px;text-align:center;font-size:12.5px;color:rgba(255,255,255,0.6);width:100%}
+@media(max-width:800px){.gallery{grid-template-columns:1fr}.info-bar{grid-template-columns:1fr!important}.footer-container{grid-template-columns:1fr}.wrap{padding:20px 12px}}
+</style>
+</head>
+<body>
+<div class="top-menu-btn" onclick="toggleMenu()">☰ Menu</div>
+<div class="sidebar" id="sidebar">
+<div class="head"><h2>Menu</h2><span onclick="toggleMenu()" style="cursor:pointer;font-size:28px">✕</span></div>
+<a href="#home" onclick="toggleMenu()">🏠 Home</a>
+<a href="#about" onclick="toggleMenu()">👤 About Us</a>
+<a href="#services" onclick="toggleMenu()">📦 Services</a>
+<a href="#contact" onclick="toggleMenu()">📞 Contact</a>
+<a href="#gallery" onclick="toggleMenu()">🖼️ Gallery</a>
+<a href="login.html" style="background:white;color:#000;text-align:center;margin-top:30px" onclick="sessionStorage.clear()">Logout</a>
+</div>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<div id="home" class="hero">
+<h1>WELCOME TO CHESTER LOGISTICS</h1>
+<div class="sub">Fast, Reliable, and Affordable Logistics Solutions across South Africa.<br><b>"Moving Possibilities, Delivering Trust."</b><br>Based in Alexandra, Soweto, Tembisa - Delivering Nationwide with Toyota Hilux</div>
+<div class="hero-buttons">
+<a class="btn-quote" href="#" onclick="openQuote();return false">📦 Get Free Quote</a>
+<a class="btn-call" href="https://secure-web.cisco.com/1Nc5S-GzLhS9QRv8yVgoGtxbliNj_VbJtDi8hOPthndRzQMWH3xgtLxQ3j6m0Z0S2v2iBj1QjE4C9hDOIPRpH7bQiPZX2kRxWVfO0l31EBYF6ajUPyKv_U28FLxWtL7jpmDToZRVwpFuERw5XUCC25o-eT20jLi73VO2bFh8iRuRNuERSn_aarSAVUZU9KbGhNnpJebLQ3hfXP3dTHyxmELwlqyKrnWF3QmTZKO0bwlQqGzu-7yMlD_3d2QrHopRCuw-dh_NeQMQz2j8zZMqdpiPDDUGN-0Eju--Dvyjpw-U00bH68LPWJNDXYframB8IZZxAfUJlvpotzoanGKDCAJBr5DipHaOtI6JN0lvWVYc/https%3A%2F%2Fwa.me%2F27655812089">💬 WhatsApp Us</a>
+<a class="btn-track" href="track.html">Track CHESTER-1001</a>
+</div>
+<div style="margin-top:20px"><a class="btn-quote" href="tel:0655812089" style="background:#1976d2">📞 Call Us Now - 065 581 2089</a></div>
+<div class="stats"><div>⭐ 100+ Deliveries</div><div>🚚 Same Day</div><div>📍 Soweto & Alexandra</div><div>💬 WhatsApp Tracking</div></div>
+</div>
+
+<div id="about" class="wrap">
+<h2 class="title">About Chester Logistics</h2>
+<div class="about-card"><h3>🏢 Our Background</h3><p>Chester Logistics was established in 2022 with the vision of providing reliable, efficient, and customer-focused transportation and logistics services. Starting with one Toyota Hilux in Alexandra, we have grown through word of mouth.</p></div>
+<div class="grid">
+<div class="about-card"><h3>🎯 Our Mission</h3><p>To provide fast, affordable and secure logistics that helps small businesses grow.</p></div>
+<div class="about-card"><h3>👁️ Our Vision</h3><p>To become the most trusted township-based logistics brand in South Africa.</p></div>
+</div>
+<div class="about-card"><h3>💎 Why Choose Us</h3>
+<p>✅ Local - Alex, Soweto, Tembisa ✅ Toyota Hilux GD-6 ✅ 100+ deliveries ✅ After hours ✅ Pay after delivery</p>
+<p style="margin-top:12px;line-height:1.9">✅ Reliable and secure transportation<br>✅ Professional support<br>✅ Affordable pricing no hidden costs<br>✅ Same-day delivery<br>✅ Alex, Soweto, Tembisa, Midrand, Sandton, Pretoria<br>✅ WhatsApp support<br>✅ Weekends & after-hours<br>✅ On-time deliveries</p>
+<div class="quote-box"><h2>Ready to work with us?</h2><a class="btn-white" href="#contact">Contact Us Today</a></div>
+</div>
+</div>
+
+<div id="services" class="wrap">
+<h2 class="title">Our Services</h2>
+<div class="grid">
+<div class="service-card"><h3>📦 Local Deliveries</h3><p>Fast door-to-door delivery within Alexandra, Soweto, Tembisa, Midrand, Sandton, JHB CBD.</p></div>
+<div class="service-card"><h3>🚛 Freight Transport</h3><p>Bulk goods, equipment, stock, furniture throughout Gauteng and nationwide. Up to 1.2 tonnes.</p></div>
+<div class="service-card"><h3>⚡ Same-Day & After Hours</h3><p>Express delivery service ensures quick pickups and same-day deliveries.</p></div>
+<div class="service-card"><h3>🏢 Business Logistics</h3><p>Tailored for small businesses, wholesalers, retailers, online stores.</p></div>
+<div class="service-card"><h3>📦 Courier & E-Commerce</h3><p>Online orders, cash-on-delivery, proof-of-delivery photos.</p></div>
+<div class="service-card"><h3>🏭 Moving & Distribution</h3><p>Affordable residential and office moving services throughout Gauteng.</p></div>
+</div>
+<div class="quote-box"><h2>Need a Quote?</h2><a class="btn-white" href="https://secure-web.cisco.com/1Nc5S-GzLhS9QRv8yVgoGtxbliNj_VbJtDi8hOPthndRzQMWH3xgtLxQ3j6m0Z0S2v2iBj1QjE4C9hDOIPRpH7bQiPZX2kRxWVfO0l31EBYF6ajUPyKv_U28FLxWtL7jpmDToZRVwpFuERw5XUCC25o-eT20jLi73VO2bFh8iRuRNuERSn_aarSAVUZU9KbGhNnpJebLQ3hfXP3dTHyxmELwlqyKrnWF3QmTZKO0bwlQqGzu-7yMlD_3d2QrHopRCuw-dh_NeQMQz2j8zZMqdpiPDDUGN-0Eju--Dvyjpw-U00bH68LPWJNDXYframB8IZZxAfUJlvpotzoanGKDCAJBr5DipHaOtI6JN0lvWVYc/https%3A%2F%2Fwa.me%2F27655812089">Get Quote on WhatsApp</a></div>
+</div>
+
+<div id="contact" class="wrap">
+<h2 class="title">Contact Chester Logistics</h2>
+<div class="contact-grid">
+<div class="info-box"><h3>📧 Email</h3><p>malulekchester24@gmail.com</p></div>
+<div class="info-box"><h3>📱 Call / WhatsApp</h3><p>065 581 2089 - Chester<br>Mon-Sun 6AM - 9PM</p></div>
+<div class="info-box"><h3>📍 Areas</h3><p>Alexandra, Soweto, Tembisa, Midrand, Sandton, JHB CBD, Pretoria + Long distance</p></div>
+</div>
+<div class="visit-box">
+<h3>📍 Visit Us - Pan Africa Mall, Alex</h3>
+<iframe class="map" src="https://secure-web.cisco.com/1_ev8zvRG1n7MNgTjhPRcvy2wtdBXQ6vY9aZuXkiGOHdkT1gPzLeOFsYr_OK08bBGrxgWyzAbaqKwg-wu_l6iUO8gUvOnVKtboO1CjI6HBTYTY_VFRa0euRfLf4jbxTsbenlvSoe7LkCU6XV5Bx49PF7xVpe9-Y9syD6iZcO4fZ1MyvLpisrBt0jYxYaPX95CyyEXXVyaCLePCRAPpFLGlYkhO-_uKEf8m5HDZVpD4BZN-ibHV6feK19qmnyUq7-UCpDcblbjJmVQfZB_naaMKMpu1Bh1liRzbBh6IbFSJ3Q6Dz9CeFer95l20jAPzWmMJOawjSgXQgPwucC5dny6X4b6K3s46etELeI0voZfn44/https%3A%2F%2Fwww.google.com%2Fmaps%2Fembed%3Fpb%3D%211m18%211m12%211m3%211d3580.842%212d28.089%213d-26.104%212m3%211f0%212f0%213f0%213m2%211i1024%212i768%214f13.1%213m3%211m2%211s0x1e9572b5%253A0x0%212sPan%2520Africa%2520Shopping%2520Centre%215e0%213m2%211sen%212sza%214v1" allowfullscreen loading="lazy"></iframe>
+<div style="padding:20px 0 5px">
+<a href="https://secure-web.cisco.com/1Nc5S-GzLhS9QRv8yVgoGtxbliNj_VbJtDi8hOPthndRzQMWH3xgtLxQ3j6m0Z0S2v2iBj1QjE4C9hDOIPRpH7bQiPZX2kRxWVfO0l31EBYF6ajUPyKv_U28FLxWtL7jpmDToZRVwpFuERw5XUCC25o-eT20jLi73VO2bFh8iRuRNuERSn_aarSAVUZU9KbGhNnpJebLQ3hfXP3dTHyxmELwlqyKrnWF3QmTZKO0bwlQqGzu-7yMlD_3d2QrHopRCuw-dh_NeQMQz2j8zZMqdpiPDDUGN-0Eju--Dvyjpw-U00bH68LPWJNDXYframB8IZZxAfUJlvpotzoanGKDCAJBr5DipHaOtI6JN0lvWVYc/https%3A%2F%2Fwa.me%2F27655812089" style="background:#25D366;color:white;padding:13px 22px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;margin-right:10px;margin-bottom:10px">WhatsApp Us Now</a>
+<a href="tel:0655812089" style="background:#e65100;color:white;padding:13px 22px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block">Call Us Now</a>
+</div>
+</div>
+</div>
+
+<section id="gallery" style="background:#f8fafc;padding:30px 0;width:100%">
+<h2 style="text-align:center;font-size:32px;color:#0f172a;margin-bottom:20px">Our Gallery</h2>
+<div class="gallery">
+<div class="g-card"><img src="building.jpg" onerror="this.src='https://secure-web.cisco.com/1YClEP6CxWcv90fRJn_4A-ZFqki2KglVmgEYVaUb7qwkTu2-c0M3lKK1iRGzMUUpdk8N5DQ6t8EXs-WWx5zlmHNOdNm_aUq-7g_s1lVoxecdgxecpd9Q5joQ1oM_wQbAf-PQLE-akk4K1XSI3Jfhg3U5OBkvvYsj18wkmwDzQljhw5qJ6hIkfYEk2zn9YwQRaoFvq_Xj2n2bBHxMWxehjZlwghGTcM6G3TYzyDUZ7DGPJU1C0E6_ueq5xLUIrrWgN5fLRiT_mKvnKimLIsRy-UV9Xa2YLkhYNEFIOIOaHe89yj0y3MA6a6NJdhgirZF6iyJIvjSLiF8KX4FWvF5-XiDAjdUATXdTTtFYT7OP2xUo/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1486406146926-c627a92ad1ab%3Fw%3D800'"><div style="padding:16px"><span style="background:#ff6a00;color:white;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:bold">HEAD OFFICE</span><h3 style="color:white;margin:8px 0">Head Office - Alexandra</h3><p style="color:#94a3b8;font-size:13px">Mon-Sat 7am-7pm, 24/7 phone: 065 581 2089.</p></div></div>
+<div class="g-card"><img src="trucks.jpg" onerror="this.src='https://secure-web.cisco.com/181b-ld2DH-12hQRBjHtJQgMa8pY_szI_Z0jJ37_bsog4FSYF55SH3YSXKUtaUxn21XZlAYgQSId2L78nLs5e9ot3NMog56XmzHzEEcjV4J2UzHaS6r0ntUtb-tq68GlaOhSEh_1Ts-XObVRmud2saaWxHzJ8WE_bBfsJXVo1JCSOuLfXOuTLm--Yh52m9ccPRQXZdrm0CFg-1AZGRqT2B3ThQI_m65Tbr5lF6bBjIQ-w2gYjQq2XLwB38oyxkytAlTS-UTmXxO2jysZ5_34MYqZ50ICOEoSuxQj4aADxfrtv27P-Y-mkGB4LqX1prfXGQ0r8MkjxtqivREbWVNCRtYAjyhw4bO43Mj0-TgewrnY/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1616432043562-3671ea2e5242%3Fw%3D800'"><div style="padding:16px"><span style="background:#ff6a00;color:white;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:bold">OUR FLEET</span><h3 style="color:white;margin:8px 0">Chester Logistics Truck</h3><p style="color:#94a3b8;font-size:13px">GPS-tracked, insured, with blankets, trolley, straps.</p></div></div>
+<div class="g-card"><img src="warehouse.jpg" onerror="this.src='https://secure-web.cisco.com/1tDgCQHCc6kIS_nXX9ueAcg3FhH_8Ixi7KdedbXvovRXuTVF-DrJ9phUaECovakY-bY406zKa-CB-deoXQPEH3k-PCjmBs7mHmdQhvDvCcUswgQd_DmYRJ1CzsWJTH1j1SCT2IQk6L2ICWRfNKkDEkZhjW_P54I8cFNeOh0bzdc91bglhpWIPIon8AOhwHIvtlOw7zXRbUToiLg_b-fnTuCpwI5ZwcSJhZ-Y7vRRjISxYuT4JkrHyd2fELarF9gzlbn5H1c5j-M9YukAdGK9cBaHicMgIwd2Z9_jh02A9mtdwGdN6s7q_SooDHX3nB8l0v7yifsgHPjT68mhsj9wAApLM99HpM0Tnqx7ffdAuGws/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1586528116311-ad8dd3c8310d%3Fw%3D800'"><div style="padding:16px"><span style="background:#ff6a00;color:white;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:bold">WAREHOUSE</span><h3 style="color:white;margin:8px 0">Secure Storage Facility</h3><p style="color:#94a3b8;font-size:13px">CCTV 24/7, fire extinguisher, inventory system.</p></div></div>
+</div>
+<div class="info-bar">
+<div style="background:#0f172a;padding:18px;border-radius:12px"><h4 style="color:#ff7a18">📍 Location</h4><p style="color:#cbd5e1;font-size:13px;margin-top:6px">Alexandra, Johannesburg. Serving Soweto, Sandton, Midrand, Randburg, East Rand, Pretoria, all SA.</p></div>
+<div style="background:#0f172a;padding:18px;border-radius:12px"><h4 style="color:#ff7a18">📞 Contact Chester</h4><p style="color:#cbd5e1;font-size:13px;margin-top:6px"><b>Owner:</b> Chester Maluleke<br>Phone/WhatsApp: 065 581 2089<br>Email: info@chesterlogistics.co.za</p></div>
+<div style="background:#0f172a;padding:18px;border-radius:12px"><h4 style="color:#ff7a18">⭐ Why Choose Us?</h4><p style="color:#cbd5e1;font-size:13px;margin-top:6px">Affordable, reliable, on-time. 100+ happy clients. No hidden costs.</p></div>
+</div>
+</section>
+
+<footer class="main-footer">
+<div class="footer-container">
+<div class="footer-col"><h4>About Chester Logistics</h4><span class="line"></span><p>Affordable, reliable moving company in Alexandra. Dedicated to on-time delivery, safety, and Moving Possibilities, Delivering Trust.</p></div>
+<div class="footer-col"><h4>Quick Links</h4><span class="line"></span><ul><li><a href="#home">Home</a></li><li><a href="#services">Our Services</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#" onclick="openQuote();return false">Get a Quote</a></li></ul></div>
+<div class="footer-col"><h4>Contact Us</h4><span class="line"></span><p>📍 Alexandra, Johannesburg, Gauteng</p><p>📞 065 581 2089</p><p>✉️ info@chesterlogistics.co.za</p><p>🕒 Mon-Sat: 7am - 7pm</p></div>
+</div>
+<div class="footer-bottom"><p>© 2026 Chester Logistics Pty Ltd. All rights reserved. Moving Possibilities, Delivering Trust.</p></div>
+</footer>
+
+<div id="quoteModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:99999;align-items:center;justify-content:center">
+<div style="background:white;padding:30px;border-radius:20px;max-width:450px;width:90%;position:relative">
+<span onclick="closeQuote()" style="position:absolute;top:10px;right:15px;font-size:28px;cursor:pointer">×</span>
+<h2 style="color:#FF6A00;margin-top:0">Get Free Quote</h2>
+<input id="qName" placeholder="Your Name" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc">
+<input id="qPhone" placeholder="Phone e.g. 0655812089" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc">
+<input id="qFrom" placeholder="From - e.g. Alexandra" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc">
+<input id="qTo" placeholder="To - e.g. Soweto" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc">
+<input id="qWhat" placeholder="What to deliver?" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc">
+<button onclick="sendQuote()" style="width:100%;background:#FF6A00;color:white;padding:14px;border:none;border-radius:10px;font-weight:bold;margin-top:10px;cursor:pointer">Send Quote via WhatsApp</button>
+</div>
+</div>
+
+<script>
+function toggleMenu(){document.getElementById('sidebar').classList.toggle('active');document.getElementById('overlay').classList.toggle('active')}
+function openQuote(){document.getElementById('quoteModal').style.display='flex'}
+function closeQuote(){document.getElementById('quoteModal').style.display='none'}
+function sendQuote(){
+let name=document.getElementById('qName').value.trim();
+let phone=document.getElementById('qPhone').value.trim();
+let from=document.getElementById('qFrom').value.trim();
+let to=document.getElementById('qTo').value.trim();
+let what=document.getElementById('qWhat').value.trim();
+if(!name||!phone||!from||!to||!what){alert('Please fill in all required fields!');return}
+let quote={id:Date.now(),name:name,phone:phone,from:from,to:to,what:what,date:new Date().toLocaleString(),status:'NEW'};
+let all=JSON.parse(localStorage.getItem('chester_quotes')||'[]');all.unshift(quote);localStorage.setItem('chester_quotes',JSON.stringify(all));
+alert('✅ Quote saved!');closeQuote();
+let msg=`NEW QUOTE%0AName: ${name}%0APhone: ${phone}%0AFrom: ${from}%0ATo: ${to}%0AWhat: ${what}`;
+window.open(`https://secure-web.cisco.com/1XVXugVpWBdyfyOtTRjWl6rHquPnVfKp7rYQyINCWgretDKvr9N7mbmbllRQqKxvmFp_gHGFAB6VGN7KnudxbnJgB3hcOzwtBxGXXiV1spTMrsXj1YLNeFSwgQefiRxOjAjTeSlRn5ZtjDBK2v94iYpMOvcbwOnedOi0dxpo7FVAEOPjMwB79znKw6G4GB2r2eQP1KzI2Qz1Q40gialWtfk2oz8EDNdBmrT6TywpE1CiHiKTr6TmjBwKHdaJc1jP5nE4mQESu1qylHLurXptezfw5MkTnMprGKeM2dneyI7uMFI4U_T6IGGECZJlLYMaBo2z49CzDHZq8rZRL_MHPL4Qob1d_3GlHwDhgtYmwusk/https%3A%2F%2Fwa.me%2F27655812089%3Ftext%3D%24%7Bmsg%7D%60%2C%27_blank%27`);
+}
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forgot Password - Chester Logistics</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:
+        linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.85)),
+        url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1950&q=80');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    padding:20px;
+}
+
+.navbar{
+    position:fixed;
+    top:18px;
+    right:18px;
+    background:#d4a017;
+    padding:8px 14px;
+    border-radius:60px;
+    border:1px solid gold;
+}
+
+.navbar ul{
+    display:flex;
+    list-style:none;
+    gap:5px;
+}
+
+.navbar ul li a{
+    color:white;
+    text-decoration:none;
+    padding:10px 14px;
+    font-size:13px;
+    font-weight:bold;
+    display:block;
+}
+
+.navbar ul li a:hover{
+    background:rgba(0,0,0,0.2);
+    border-radius:30px;
+}
+
+.card{
+    background:white;
+    width:92%;
+    max-width:420px;
+    padding:35px 28px;
+    border-radius:18px;
+    border-left:6px solid #1976d2;
+    box-shadow:0 15px 50px rgba(0,0,0,0.6);
+}
+
+.card h1{
+    text-align:center;
+    color:#222;
+    font-size:24px;
+}
+
+.sub{
+    text-align:center;
+    color:#888;
+    font-size:13px;
+    margin:8px 0 20px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin:8px 0;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+}
+
+.show{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:13px;
+    color:#555;
+    margin:6px 0;
+}
+
+.btn{
+    width:100%;
+    background:linear-gradient(90deg,#1976d2,#42a5f5);
+    color:white;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    font-size:16px;
+    margin-top:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    background:linear-gradient(90deg,#1565c0,#1e88e5);
+}
+
+.links{
+    text-align:center;
+    margin-top:18px;
+    font-size:14px;
+}
+
+.links a{
+    color:#e65100;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.links a:hover{
+    text-decoration:underline;
+}
+
+@media(max-width:500px){
+    .card{
+        padding:25px 20px;
+    }
+
+    .navbar{
+        right:10px;
+        left:10px;
+    }
+
+    .navbar ul{
+        justify-content:center;
+    }
+}
+</style>
+</head>
+
+
+<div class="card">
+    <h1>Reset Password</h1>
+    <div class="sub">Reset your Chester Logistics password</div>
+
+    <input id="em" type="email" placeholder="📧 Registered Email">
+
+    <input id="np" type="password" placeholder="🔒 New Password">
+
+    <input id="cp" type="password" placeholder="🔒 Confirm New Password">
+
+    <label class="show">
+        <input type="checkbox" id="chk3"
+        onchange="
+        let t=this.checked?'text':'password';
+        document.getElementById('np').type=t;
+        document.getElementById('cp').type=t;">
+        Show Password
+    </label>
+
+    <button class="btn" onclick="resetPass()">
+        Reset Password
+    </button>
+
+    <div class="links">
+        <a href="login.html">← Back to Login</a>
+
+        <br><br>
+
+        https://wa.me/27655812089
+            WhatsApp Admin: 065 581 2089
+        </a>
+    </div>
+</div>
+
+<script>
+function resetPass(){
+
+    var em = document.getElementById('em').value.trim();
+    var np = document.getElementById('np').value;
+    var cp = document.getElementById('cp').value;
+
+    if(!em || !np){
+        alert('Please fill in your email and new password.');
+        return;
+    }
+
+    if(np !== cp){
+        alert('Passwords do not match.');
+        return;
+    }
+
+    var users = JSON.parse(localStorage.getItem('chester_users') || '[]');
+
+    var idx = users.findIndex(user => user.email === em);
+
+    if(idx === -1){
+        alert('No account found with this email. Please create an account first.');
+        return;
+    }
+
+    users[idx].password = np;
+
+    localStorage.setItem('chester_users', JSON.stringify(users));
+
+    alert('✅ Password Reset Successful!');
+
+    location.href = 'login.html';
+}
+</script>
+
+</body>
+</html>

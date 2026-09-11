@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Free Quote | Chester Logistics</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{background:#0f0f0f;color:white;}
+.header{background:black;padding:15px 5%;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #FF6A00;}
+.header a{color:white;text-decoration:none;margin-left:20px;}
+.header a:hover{color:#FF6A00;}
+.hero{
+  background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.85)),url('https://secure-web.cisco.com/1rGw24mgEhP4vkfrue0FwOIjXy1bjonkKzgRSRvq8qHwJF7nz1jZ8aH5JUn0-IIRJpCMwuji9V2BuSq0IllbLIYNnJoY9qRPk1iuJNqtEt3pmH5kS5wBxMCZvAOHY1FCe7OjovBADgv_l526fVfJy8aUHXOQdT5w5PKBf1ABzzWBppmd32SiX4yCbhZdcwvhl2ltEQSRuMur-sIBg0OrX12ifhKmWoxFmx-2zkQ5OPs1jl4CN_o2dXOGrbQqUzJ6ZLR8EYHv5UibOaODrKxiUERT5QplmL-vG8UcneIEIb6zuk32Wi12MXX35UPn0bmepi2HQTsrCgApTYlWYJBRQ3Q/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1586528116311-ad8dd3c8310d%3Fauto%3Dformat%26fit%3Dcrop%26w%3D1950%26q%3D80%27');
+  background-size:cover;background-position:center;
+  padding:60px 5%;text-align:center;
+}
+.hero h1{font-size:42px;color:#FF6A00;text-shadow:0 0 15px rgba(255,106,0,0.5);}
+.hero p{color:#ddd;margin-top:10px;font-size:18px;}
+.form-wrap{max-width:700px;margin:-30px auto 50px auto;background:white;border-radius:25px;padding:35px;color:#111;box-shadow:0 20px 60px rgba(255,106,0,0.3);}
+.form-wrap h2{color:#111;text-align:center;margin-bottom:5px;}
+.form-wrap small{display:block;text-align:center;color:#777;margin-bottom:25px;}
+label{font-weight:700;margin-top:15px;display:block;font-size:14px;}
+input, select, textarea{
+  width:100%;padding:14px;margin-top:6px;border-radius:12px;border:1.5px solid #ddd;
+  font-size:15px;outline:none;transition:0.3s;
+}
+input:focus, select:focus, textarea:focus{border-color:#FF6A00;box-shadow:0 0 0 3px rgba(255,106,0,0.15);}
+.row{display:flex;gap:15px;}
+.row div{flex:1;}
+.btn-main{
+  width:100%;background:linear-gradient(90deg,#FF6A00,#ff8c42);color:white;
+  padding:16px;border:none;border-radius:14px;font-size:18px;font-weight:800;
+  margin-top:25px;cursor:pointer;box-shadow:0 8px 20px rgba(255,106,0,0.4);transition:0.3s;
+}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,106,0,0.6);}
+.btn-whats{
+  width:100%;background:#25D366;color:white;
+  padding:16px;border:none;border-radius:14px;font-size:17px;font-weight:700;
+  margin-top:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.badge{display:inline-block;background:#fff2e8;color:#FF6A00;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;margin:5px;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h2 style="color:#FF6A00;">🚚 CHESTER LOGISTICS</h2>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="quote.html" style="color:#FF6A00;">Quote</a>
+    <a href="tel:0655812089">065 581 2089</a>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>WELCOME TO CHESTER LOGISTICS</h1>
+  <p>Fast, Reliable & Affordable - Alex | Soweto | Tembisa → Nationwide with Toyota Hilux</p>
+  <div style="margin-top:20px;">
+    <span class="badge">⭐ 100+ Deliveries</span>
+    <span class="badge">🚚 Same Day</span>
+    <span class="badge">📍 Soweto & Alexandra</span>
+  </div>
+</div>
+
+<div class="form-wrap">
+  <h2>📦 Get Your Free Quote Now</h2>
+  <small>Fill in details → We reply on WhatsApp in 5 minutes!</small>
+
+  <label>Full Name *</label>
+  <input id="name" placeholder="e.g. Chester Maluleke">
+
+  <label>Phone / WhatsApp Number *</label>
+  <input id="phone" placeholder="e.g. 065 581 2089">
+
+  <div class="row">
+    <div><label>From Where? *</label><input id="from" placeholder="Alexandra"></div>
+    <div><label>To Where? *</label><input id="to" placeholder="Soweto"></div>
+  </div>
+
+  <div class="row">
+    <div>
+      <label>What are you sending?</label>
+      <select id="type">
+        <option>Documents / Small Parcel</option>
+        <option>Furniture / Fridge / Couch</option>
+        <option>Grocery / Stock</option>
+        <option>Building Material</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div>
+      <label>When?</label>
+      <select id="when">
+        <option>ASAP / Today</option>
+        <option>Tomorrow</option>
+        <option>This Week</option>
+      </select>
+    </div>
+  </div>
+
+  <label>More Details</label>
+  <textarea id="details" rows="3" placeholder="e.g. 2 seater couch + fridge, 3rd floor..."></textarea>
+
+  </div>
+
+  <button class="btn-send" onclick="sendQuote()">🚀 Send Quote to Chester</button>
+
+  <p style="text-align:center;margin-top:15px;font-size:13px;color:#777">"Moving Possibilities, Delivering Trust." - Chester Logistics</p>
+</div>
+
+<style>
+.btn-send{
+  width:100%;
+  background: linear-gradient(90deg,#FF6A00,#ff8c42);
+  color:white;
+  padding:18px;
+  border:none;
+  border-radius:14px;
+  font-weight:900;
+  font-size:19px;
+  cursor:pointer;
+  margin-top:20px;
+  box-shadow:0 8px 25px rgba(255,106,0,0.45);
+}
+.btn-send:hover{ transform:translateY(-2px); box-shadow:0 12px 30px rgba(255,106,0,0.6); }
+</style>
+
+<script>
+function sendQuote(event){
+  if(event) event.preventDefault();
+
+  // Get values - works even if IDs are different
+  let name = document.querySelector('input[placeholder*="Name"], #fullName, #name, input[type="text"]')?.value || '';
+  let phone = document.querySelector('input[type="tel"], input[placeholder*="Phone"], #phone')?.value || '';
+  let from = document.querySelectorAll('input')[2]?.value || document.getElementById('from')?.value || 'Alexandra';
+  let to = document.querySelectorAll('input')[3]?.value || document.getElementById('to')?.value || 'Soweto';
+  let what = document.querySelector('select')?.value || 'Furniture';
+  let when = document.querySelectorAll('select')[1]?.value || 'Tomorrow';
+  let details = document.querySelector('textarea')?.value || '';
+
+  // Actually get the real visible ones from your screenshot
+  let inputs = document.querySelectorAll('input');
+  if(inputs.length >= 4){
+    name = inputs[0].value;
+    phone = inputs[1].value;
+    from = inputs[2].value;
+    to = inputs[3].value;
+  }
+
+  if(!name.trim() ||!phone.trim() || !from.trim() || !to.trim() || !what.trim()){
+    alert('Please fill in all required fields!');
+    return false;
+  }
+
+  let allQuotes = JSON.parse(localStorage.getItem('chester_quotes') || '[]');
+  let newQuote = {
+    id: Date.now(),
+    name: name.trim(),
+    phone: phone.trim(),
+    from: from,
+    to: to,
+    what: what,
+    when: when,
+    details: details,
+    date: new Date().toLocaleString('en-ZA', {dateStyle:'full', timeStyle:'short'}),
+    status: 'New'
+  };
+  allQuotes.push(newQuote);
+  localStorage.setItem('chester_quotes', JSON.stringify(allQuotes));
+
+  alert('✅ Quote Sent Boss! ' + name + ' from ' + from + ' to ' + to);
+  window.location.href = 'index.html';
+  return false;
+}
+
+// Make button work
+document.addEventListener('DOMContentLoaded', ()=>{
+  let btn = document.querySelector('button');
+  if(btn) btn.onclick = sendQuote;
+  let form = document.querySelector('form');
+  if(form) form.onsubmit = sendQuote;
+});
+
+</script>
+</body>
+</html>

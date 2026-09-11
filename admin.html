@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Super Admin - Chester Logistics</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI;
+}
+body{
+    background:#0e0e0e;
+    color:white;
+    padding:15px;
+}
+.top{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin:15px 0;
+}
+.stat{
+    background:white;
+    color:#111;
+    padding:15px;
+    border-radius:15px;
+    flex:1;
+    min-width:150px;
+    border-left:5px solid #FF6A00;
+}
+.stat b{
+    font-size:28px;
+    color:#FF6A00;
+    display:block;
+}
+.card{
+    background:white;
+    color:#111;
+    border-radius:15px;
+    padding:15px;
+    margin:10px 0;
+}
+.fail{
+    border-left:6px solid red;
+}
+.success{
+    border-left:6px solid #25D366;
+}
+.quote{
+    border-left:6px solid #FF6A00;
+}
+.btn{
+    padding:7px 12px;
+    border-radius:7px;
+    border:none;
+    cursor:pointer;
+    font-weight:700;
+    margin:3px;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+}
+td,th{
+    padding:8px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+    font-size:13px;
+}
+.login-box{
+    max-width:400px;
+    margin:80px auto;
+    background:white;
+    color:#111;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+}
+.login-box input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border-radius:10px;
+    border:1.5px solid #ddd;
+}
+.login-box button{
+    width:100%;
+    background:#FF6A00;
+    color:white;
+    padding:13px;
+    border:none;
+    border-radius:10px;
+    font-weight:800;
+    cursor:pointer;
+}
+.tabs button{
+    background:#222;
+    color:white;
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    margin-right:6px;
+    cursor:pointer;
+}
+.tabs button.active{
+    background:#FF6A00;
+}
+</style>
+
+</head>
+<body>
+
+<div id="loginView" class="login-box">
+    <h2 style="color:#FF6A00">🚚 Chester Super Admin</h2>
+
+    <input id="adminEmail" placeholder="Email">
+    <input id="adminPass" type="password" placeholder="Password">
+
+    <button onclick="adminLogin()">Login</button>
+
+    <p id="err" style="color:red;margin-top:8px"></p>
+</div>
+
+<div id="adminView" style="display:none">
+
+    <h1 style="color:#FF6A00">Chester Logistics - Super Admin</h1>
+
+    <p>
+        <span id="now"></span>
+        
+        <a href="index.html" style="color:#FF6A00">View Site</a>
+        
+        <a href="#" style="color:rgb(0, 51, 255)" onclick="logout()">Logout</a>
+    </p>
+
+    <div class="top">
+        <div class="stat">
+            <b id="cQuotes">0</b>
+            Quotes
+        </div>
+
+        <div class="stat">
+            <b id="cUsers">0</b>
+            Users / Clients
+        </div>
+
+        <div class="stat">
+            <b id="cLogins">0</b>
+            Successful Logins
+        </div>
+
+        <div class="stat">
+            <b id="cFails">0</b>
+            Failed Attempts
+        </div>
+    </div>
+
+    <div class="tabs">
+        <button class="active" onclick="showTab('quotes',this)">📦 Quotes</button>
+        <button onclick="showTab('logins',this)">🔐 Logins</button>
+        <button onclick="showTab('fails',this)">⚠️ Failed Attempts</button>
+        <button onclick="showTab('users',this)">👥 Users</button>
+    </div>
+
+    <div id="tab-quotes"></div>
+    <div id="tab-logins" style="display:none"></div>
+    <div id="tab-fails" style="display:none"></div>
+    <div id="tab-users" style="display:none"></div>
+
+</div>
+
+<script>
+
+const CORRECT_EMAIL='chester@chesterlogistics.co.za';
+const CORRECT_PASS='Chester@2024!';
+
+function adminLogin(){
+
+    let email=document.getElementById('adminEmail').value.trim();
+    let pass=document.getElementById('adminPass').value.trim();
+
+    let now=new Date().toLocaleString();
+
+    let attempt={
+        id:Date.now(),
+        email:email || 'empty',
+        time:now,
+        loginTime:now,
+        logoutTime:'',
+        role:(email===CORRECT_EMAIL ? 'Admin' : 'Customer'),
+        success:(email===CORRECT_EMAIL && pass===CORRECT_PASS),
+        browser:navigator.userAgent.slice(0,60),
+        page:'Admin Login'
+    };
+
+    let logs=JSON.parse(localStorage.getItem('chester_login_history') || '[]');
+
+    logs.unshift(attempt);
+
+    localStorage.setItem('chester_login_history',JSON.stringify(logs));
+
+    if(attempt.success){
+
+        sessionStorage.setItem('chester_admin','true');
+        sessionStorage.setItem('chester_login_id',attempt.id);
+
+        showAdmin();
+
+    }else{
+
+        document.getElementById('err').innerText=
+        '❌ Wrong Login Details. Attempt logged at '+attempt.time;
+
+        loadAll();
+    }
+}
+
+function logout(){
+
+    let logs=JSON.parse(localStorage.getItem('chester_login_history') || '[]');
+
+    let loginId=sessionStorage.getItem('chester_login_id');
+
+    logs=logs.map(log=>{
+
+        if(log.id==loginId && log.success){
+
+            log.logoutTime=new Date().toLocaleString();
+        }
+
+        return log;
+    });
+
+    localStorage.setItem('chester_login_history',JSON.stringify(logs));
+
+    sessionStorage.removeItem('chester_admin');
+    sessionStorage.removeItem('chester_login_id');
+
+    location.reload();
+}
+
+function showAdmin(){
+
+    if(sessionStorage.getItem('chester_admin')!=='true') return;
+
+    document.getElementById('loginView').style.display='none';
+    document.getElementById('adminView').style.display='block';
+
+    document.getElementById('now').innerText=
+    new Date().toLocaleString();
+
+    loadAll();
+}
+
+function showTab(name,btn){
+
+    document.querySelectorAll('[id^="tab-"]')
+    .forEach(d=>d.style.display='none');
+
+    document.getElementById('tab-'+name).style.display='block';
+
+    document.querySelectorAll('.tabs button')
+    .forEach(b=>b.classList.remove('active'));
+
+    btn.classList.add('active');
+}
+
+function loadAll(){
+
+    let quotes=JSON.parse(localStorage.getItem('chester_quotes')||'[]');
+
+    let logins=JSON.parse(localStorage.getItem('chester_login_history')||'[]');
+
+    let good=logins.filter(l=>l.success);
+
+    let bad=logins.filter(l=>!l.success);
+
+    document.getElementById('cQuotes').innerText=quotes.length;
+    document.getElementById('cLogins').innerText=good.length;
+    document.getElementById('cFails').innerText=bad.length;
+
+    let usersMap={};
+
+    quotes.forEach(q=>{
+
+        if(!usersMap[q.phone]){
+
+            usersMap[q.phone]={
+                name:q.name,
+                phone:q.phone,
+                count:0,
+                last:q.date
+            };
+        }
+
+        usersMap[q.phone].count++;
+    });
+
+    document.getElementById('cUsers').innerText=
+    Object.keys(usersMap).length;
+
+    let hQ='';
+
+    quotes.forEach(q=>{
+
+        hQ+=`
+        <div class="card quote">
+        <b>#${q.id.toString().slice(-6)} - ${q.date}</b><br>
+        👤 ${q.name} | 📞 ${q.phone}<br>
+        📍 ${q.from} → ${q.to}<br>
+        📦 ${q.type}<br>
+        <small>${q.details || ''}</small><br>
+
+        <button class="btn"
+        style="background:red;color:white"
+        onclick="deleteQuote(${q.id})">
+        Delete
+        </button>
+        </div>
+        `;
+    });
+
+    document.getElementById('tab-quotes').innerHTML=
+    hQ || '<p style="text-align:center;margin:20px;color:#888">No quotes yet</p>';
+
+    let hL=`
+    <table>
+    <tr>
+    <th>Login Time</th>
+    <th>Logout Time</th>
+    <th>Email</th>
+    <th>User Type</th>
+    <th>Status</th>
+    </tr>
+    `;
+
+    good.forEach(l=>{
+
+        hL+=`
+        <tr>
+        <td>${l.loginTime || l.time}</td>
+        <td>${l.logoutTime || '🟢 Currently Logged In'}</td>
+        <td>${l.email}</td>
+        <td>${l.role}</td>
+        <td style="color:green">✅ SUCCESS</td>
+        </tr>
+        `;
+    });
+
+    hL+='</table>';
+
+    document.getElementById('tab-logins').innerHTML=hL;
+
+    let hF=`
+    <table>
+    <tr>
+    <th>Time</th>
+    <th>Email Tried</th>
+    <th>Browser</th>
+    </tr>
+    `;
+
+    bad.forEach(l=>{
+
+        hF+=`
+        <tr style="background:#ffe0e0">
+        <td>${l.time}</td>
+        <td>${l.email}</td>
+        <td><small>${l.browser}</small></td>
+        </tr>
+        `;
+    });
+
+    hF+=`
+    </table>
+    <br>
+
+    <button
+    class="btn"
+    style="background:red;color:white"
+    onclick="clearFails()">
+    Clear Failed Logs
+    </button>
+    `;
+
+    document.getElementById('tab-fails').innerHTML=hF;
+
+    let hU=`
+    <table>
+    <tr>
+    <th>Name</th>
+    <th>Phone</th>
+    <th>Quotes</th>
+    <th>Last Time</th>
+    </tr>
+    `;
+
+    Object.values(usersMap).forEach(u=>{
+
+        hU+=`
+        <tr>
+        <td>${u.name}</td>
+        <td>${u.phone}</td>
+        <td>${u.count}</td>
+        <td>${u.last}</td>
+        </tr>
+        `;
+    });
+
+    hU+='</table>';
+
+    document.getElementById('tab-users').innerHTML=hU;
+}
+
+function deleteQuote(id){
+
+    if(!confirm('Delete Quote?')) return;
+
+    let all=JSON.parse(localStorage.getItem('chester_quotes')||'[]');
+
+    all=all.filter(q=>q.id!==id);
+
+    localStorage.setItem(
+        'chester_quotes',
+        JSON.stringify(all)
+    );
+
+    loadAll();
+}
+
+function clearFails(){
+
+    if(!confirm('Clear all failed attempts?')) return;
+
+    let logs=JSON.parse(localStorage.getItem('chester_login_history')||'[]');
+
+    logs=logs.filter(l=>l.success);
+
+    localStorage.setItem(
+        'chester_login_history',
+        JSON.stringify(logs)
+    );
+
+    loadAll();
+}
+
+if(sessionStorage.getItem('chester_admin')==='true'){
+    showAdmin();
+}
+
+</script>
+
+</body>
+</html>

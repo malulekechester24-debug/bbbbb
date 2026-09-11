@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHESTER LOGISTICS - Moving Possibilities</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif}
+body{background:#0a0a0a;color:#fff;scroll-behavior:smooth}
+.topbar{position:fixed;top:0;left:0;width:100%;height:60px;background:#111;display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:1001;border-bottom:2px solid #d4a017}
+.logo{font-weight:900;color:#d4a017;letter-spacing:1px;font-size:15px}
+.menu-btn{font-size:15px;cursor:pointer;color:#d4a017;background:#222;padding:8px 14px;border-radius:8px;font-weight:bold;display:flex;align-items:center;gap:6px;border:1px solid #d4a017}
+.sidebar{position:fixed;top:0;left:-280px;width:270px;height:100vh;background:#0f0f14;z-index:1002;transition:0.4s ease;padding:20px 15px;overflow-y:auto}
+.sidebar.active{left:0}
+.sidebar .head{display:flex;justify-content:space-between;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #222;color:#fff}
+.sidebar a{display:flex;gap:12px;padding:14px 15px;margin:8px 0;color:#aaa;text-decoration:none;border-radius:12px;transition:0.3s}
+.sidebar a:hover,.sidebar a.active{background:#fff;color:#000;font-weight:bold;transform:translateX(5px)}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:1000;display:none}
+.overlay.active{display:block}
+#home{min-height:100vh;background:linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url('https://secure-web.cisco.com/1SPPXTMOkenEVHE4Vol6F-NJj4xtSjL-uSD_QxrfG_z7K8pgBY0O42b5VPqI1Yf9wB8B55I6WJo6sBogJ1VLKFvuJqDK7zhZTpYXHv0E2hmx6W5WFV3hWBCeexZGuZv5IfsIA6a1ByZZGa_muSupdo8xs8f_Bz7qx-f-WNWbCQMhlDazyrY2yk6nw5Cdeh_T0JM5USf8_gIMV2hMtM8dhiKgLc-uL_Grs3ysD6S9gNlcQq8_iCM0Oip0KyCC-HbPkj2rVgt4C-d87Qi7AixpuKgG_bStNNteltoRu-EmxUU6KWHJsvwzgJ2-R-2mqOPh6oLJVefXQKRP3LW8G5ebyWg/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1586528116311-ad8dd3c8310d%26%2339');background-size:cover;background-position:center;background-attachment:fixed;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 20px 40px}
+#home h1{font-size:40px;font-weight:900;line-height:1.1}
+#home h1 span{color:#d4a017}
+#home .sub{margin:15px auto;color:#ddd;max-width:600px;line-height:1.6}
+.btn{display:block;width:92%;max-width:360px;margin:14px auto;padding:16px;border-radius:30px;border:none;font-weight:bold;font-size:16px;text-decoration:none;text-align:center;cursor:pointer}
+.btn-quote{background:linear-gradient(#ff6b35,#e63900);color:#fff}
+.btn-wa{background:linear-gradient(#25d366,#128c7e);color:#fff}
+.btn-track{background:transparent;border:2px solid #fff;color:#fff}
+.btn-call{background:linear-gradient(#4a90e2,#357abd);color:#fff}
+section{padding:60px 20px;max-width:1100px;margin:0 auto}
+section h2{text-align:center;color:#d4a017;font-size:32px;margin-bottom:10px}
+section .line{width:60px;height:3px;background:#d4a017;margin:10px auto 30px}
+.card{background:#151515;border:1px solid #222;border-radius:15px;padding:25px;margin:15px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+input,select,textarea{width:100%;padding:14px;margin:8px 0;border-radius:10px;border:1px solid #333;background:#111;color:#fff}
+label{color:#aaa;font-size:13px}
+footer{background:#111;border-top:2px solid #d4a017;padding:30px 20px;text-align:center;color:#888}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">🚛 CHESTER LOGISTICS</div>
+  <div class="menu-btn" onclick="toggleMenu()">☰ Menu</div>
+</div>
+
+<div class="sidebar" id="sidebar">
+  <div class="head"><h2>⬢ Menu</h2><span onclick="toggleMenu()" style="cursor:pointer;color:#d4a017;font-size:26px">✕</span></div>
+  <a href="#home" class="active" onclick="toggleMenu()">🏠 Home</a>
+  <a href="#about" onclick="toggleMenu()">👤 About Us</a>
+  <a href="#services" onclick="toggleMenu()">📦 Services</a>
+  <a href="#quote" onclick="toggleMenu()">💬 Get Free Quote</a>
+  <a href="#track" onclick="toggleMenu()">🔍 Track Order</a>
+  <a href="#contact" onclick="toggleMenu()">📞 Contact</a>
+  <a href="https://secure-web.cisco.com/1689Zmy6wotCT_ucXaLbarMHRxT9GvPY7HFRUBW6WcfRib2EGYEWZjkKrNhQoEr-D6fd3REdD6eklBl5x_e1Aw44TEPcXCkWifAnTO9-OOQizdw-IyNxnEAw2yw6e9ofTAU2wjlqGKI__vD3_zoXyaJleYGooLfICbZOs3ywvpoaM7NL-O-O3K4o-wJpaXmj5FLMvDgL4owm0DXif_xEHFA04EwOhJHEKqUrDitap-GvkAyMTfMf70_ndrvF-uS_i_C6x901-LHgArke1my5qkFqySIpguH7M2LmtU_vY981fsRXueD1tYEgmMhVvDEHgevhPOdsoc4ojpS1EzoR8Aw/https%3A%2F%2Fwa.me%2F27655812089" onclick="toggleMenu()">💚 WhatsApp</a>
+  <a href="tel:0655812089" style="background:#d4a017;color:#000;font-weight:bold;margin-top:20px" onclick="toggleMenu()">📞 Call Now</a>
+  <a href="login.html" style="border:1px solid #333;margin-top:10px" onclick="sessionStorage.clear()">🚪 Logout</a>
+</div>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<div id="home">
+  <div>
+    <h1>WELCOME TO<br><span>CHESTER LOGISTICS</span></h1>
+    <p class="sub">Fast, Reliable, and Affordable Logistics Solutions across South Africa.<br><b>"Moving Possibilities, Delivering Trust."</b><br>Based in Alexandra, Soweto, Tembisa - Delivering Nationwide with Toyota Hilux</p>
+    <a class="btn btn-quote" href="#quote">📦 Get Free Quote</a>
+    <a class="btn btn-wa" href="https://secure-web.cisco.com/1689Zmy6wotCT_ucXaLbarMHRxT9GvPY7HFRUBW6WcfRib2EGYEWZjkKrNhQoEr-D6fd3REdD6eklBl5x_e1Aw44TEPcXCkWifAnTO9-OOQizdw-IyNxnEAw2yw6e9ofTAU2wjlqGKI__vD3_zoXyaJleYGooLfICbZOs3ywvpoaM7NL-O-O3K4o-wJpaXmj5FLMvDgL4owm0DXif_xEHFA04EwOhJHEKqUrDitap-GvkAyMTfMf70_ndrvF-uS_i_C6x901-LHgArke1my5qkFqySIpguH7M2LmtU_vY981fsRXueD1tYEgmMhVvDEHgevhPOdsoc4ojpS1EzoR8Aw/https%3A%2F%2Fwa.me%2F27655812089">💬 WhatsApp Us</a>
+    <a class="btn btn-track" href="#track">Track CHESTER-1001</a>
+    <a class="btn btn-call" href="tel:0655812089">📞 Call Us Now - 065 581 2089</a>
+    <p style="margin-top:25px;color:#d4a017;font-weight:bold">⭐ 100+ Deliveries &nbsp;&nbsp; 🚚 Same Day Delivery</p>
+  </div>
+</div>
+
+<section id="about">
+  <h2>About Chester Logistics</h2><div class="line"></div>
+  <div class="card">
+    <p>Chester Logistics is your trusted logistics partner based in <b>Alexandra, Soweto & Tembisa</b>. We operate with <b>Toyota Hilux</b> fleet delivering nationwide.</p><br>
+    <p>✅ Same Day Delivery in Gauteng<br>✅ Next Day Delivery Nationwide<br>✅ Affordable Rates<br>✅ Real-time Tracking with CHESTER-1001 codes<br>✅ WhatsApp Booking 24/7</p>
+  </div>
+</section>
+
+<section id="services">
+  <h2>Our Services</h2><div class="line"></div>
+  <div class="grid">
+    <div class="card"><h3 style="color:#d4a017">🚚 Local Delivery</h3><p>Fast delivery within Alexandra, Soweto, Tembisa, Johannesburg, Pretoria. Same day service.</p></div>
+    <div class="card"><h3 style="color:#d4a017">📦 Nationwide Transport</h3><p>We deliver to Durban, Cape Town, Limpopo, Mpumalanga, North West - all provinces.</p></div>
+    <div class="card"><h3 style="color:#d4a017">🏠 Furniture & House Moving</h3><p>Safe moving of furniture, appliances, and full house relocation with care.</p></div>
+  </div>
+</section>
+
+<section id="quote">
+  <h2>Get Free Quote</h2><div class="line"></div>
+  <div class="card">
+    <label>Full Name</label><input type="text" id="qName" placeholder="Your name">
+    <label>Phone / WhatsApp</label><input type="text" id="qPhone" placeholder="065 581 2089">
+    <label>From - To</label><input type="text" id="qRoute" placeholder="e.g. Alexandra to Durban">
+    <label>What to deliver?</label><textarea id="qItem" placeholder="Describe goods"></textarea>
+    <button class="btn btn-quote" onclick="sendQuote()">Send Quote via WhatsApp</button>
+  </div>
+</section>
+
+<section id="track">
+  <h2>Track Your Delivery</h2><div class="line"></div>
+  <div class="card">
+    <label>Enter Tracking Code (e.g. CHESTER-1001)</label><input type="text" id="trackCode" placeholder="CHESTER-1001">
+    <button class="btn btn-track" onclick="trackOrder()">🔍 Track Now</button>
+    <div id="trackResult" style="margin-top:15px;color:#d4a017;font-weight:bold;text-align:center"></div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact Us</h2><div class="line"></div>
+  <div class="card" style="text-align:center">
+    <p>📞 <b>Call:</b> 065 581 2089<br>💚 <b>WhatsApp:</b> 065 581 2089<br>📍 Alexandra | Soweto | Tembisa<br>🚛 Operating: Mon-Sun 06:00-20:00</p><br>
+    <a class="btn btn-wa" href="https://secure-web.cisco.com/1689Zmy6wotCT_ucXaLbarMHRxT9GvPY7HFRUBW6WcfRib2EGYEWZjkKrNhQoEr-D6fd3REdD6eklBl5x_e1Aw44TEPcXCkWifAnTO9-OOQizdw-IyNxnEAw2yw6e9ofTAU2wjlqGKI__vD3_zoXyaJleYGooLfICbZOs3ywvpoaM7NL-O-O3K4o-wJpaXmj5FLMvDgL4owm0DXif_xEHFA04EwOhJHEKqUrDitap-GvkAyMTfMf70_ndrvF-uS_i_C6x901-LHgArke1my5qkFqySIpguH7M2LmtU_vY981fsRXueD1tYEgmMhVvDEHgevhPOdsoc4ojpS1EzoR8Aw/https%3A%2F%2Fwa.me%2F27655812089">Chat on WhatsApp</a>
+    <a class="btn btn-call" href="tel:0655812089">Call Now</a>
+  </div>
+</section>
+
+<footer>© 2025 CHESTER LOGISTICS - Moving Possibilities, Delivering Trust.<br>Based in Alexandra, Soweto, Tembisa.</footer>
+
+<script>
+if(sessionStorage.getItem('isLoggedIn')!=='true'){window.location.href='login.html'}
+function toggleMenu(){document.getElementById('sidebar').classList.toggle('active');document.getElementById('overlay').classList.toggle('active')}
+function sendQuote(){
+  let n=document.getElementById('qName').value, p=document.getElementById('qPhone').value, r=document.getElementById('qRoute').value, i=document.getElementById('qItem').value;
+  let msg=`*NEW QUOTE - CHESTER LOGISTICS*%0AName: ${n}%0APhone: ${p}%0ARoute: ${r}%0AItem: ${i}`;
+  window.open(`https://secure-web.cisco.com/1AfOLBM8atv8DiT3wMFzuporgu8rz2hmtwKATLjVpRBeT-0Qg6Hfhp97DxUagLK0Wvhz_ful9HYnVO-uGp7ARjP8M0Dww45DRJI87_l5Ht1c90YNqah9t-uShw9xDYCVN5m-wvsAl5qZjZDOpsuhHqPOIWO8t_etVEN9QvgP_yp4u_CajNT-sPBLjjDRdp9XmEWH8fU6xFWW7xLNa4bMXqT7t2FNlGNvU9Fg4xRK1gT3cELarQsj1bZk1-7CS_dYIvr793RIWdd4z8iGXtXKXrwzbuO-0KMIsZq0P3Jk_uqPcF9jaSxqtHe7E3ylRQlhbtspeq-2CwOBu0H8akTmfEA/https%3A%2F%2Fwa.me%2F27655812089%3Ftext%3D%24%7Bmsg%7D%60%2C%27_blank%27`);
+}
+function trackOrder(){
+  let c=document.getElementById('trackCode').value.toUpperCase();
+  document.getElementById('trackResult').innerHTML = c ? `📦 ${c} - Status: In Transit 🚚<br>Driver is on the way! Call 065 581 2089 for update` : "Please enter code";
+}
+</script>
+</body>
+</html>
+

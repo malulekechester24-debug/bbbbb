@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chester Logistics - Secure Login</title>
+<link href="https://secure-web.cisco.com/1c-kBCOv1mSmrSbXauGPz8RV5csMKpRg5zLtVvjabyn3i55YoN7rWv-SIEj4seEnq89uypLGJmkI25lXH9F0zt3sUO8VXqBhJknjBRr3KrxuD2a_WKPoYDZOFjrqSjdEE2BgwUbcNIQU83oOXkk4o8HTQn6Eui3psRnAA2TU-Z6oVT7QbZ2qB7M0dr6DljOBd6IMwKT1xfi-q75cU0xVb0QAIlAIcEuxfJ-91Vl0mRA7Yydu-hUP2JZcO1fpUyKcwJjZifLsQOhxuGl4IPFVY5Q591sF-1sZ4657uPOOTRkGJDQfjgiLqqn_Ju2_9fOSECKrTFOc9cBv3ATEO_W-weA/https%3A%2F%2Ffonts.googleapis.com%2Fcss2%3Ffamily%3DPoppins%3Awght%40400%3B600%3B800%26display%3Dswap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',Arial,sans-serif}
+body{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://secure-web.cisco.com/11jp0AtKSBemZxXSKWL5BmWWM2YC3iqA1L9ugb-4-Aznc19SSCowaQliZTNeYubYB-sehotWhue_m_PBSgq2YgTA5QUyDJxYAgX8Uw4nmHCQ9mG4-qdLVyrTlsWPV83n7VtfzUz8pTF-Ou4i0iG98XZk2fz2TeLF5QzdzQtx0ZPoq4fZDgR1GTXeM_pcARD9ihSLQPWRh39EJ0uxH62jj_Q-it-MA2MG4EMgnWJEbWWJbAGHWfms9DpZV-Iq9rM8dXrSYjGUSEX2dDWRRiWDRVU8yp238D-708c4kkoYgOT2Yn0-udI_GdwcFnZTzRxxZAeq3IjEnqPU4fZRnfndP7w/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1586528116311-ad8dd3c8310d%3Fauto%3Dformat%26fit%3Dcrop%26w%3D1950%26q%3D80%27');
+  background-size:cover;background-position:center;
+  padding:20px;
+}
+/* BEAUTIFUL BLACK BOX */
+.card{
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(10px);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-image: linear-gradient(45deg, #ffcc00, #ff8a00) 1;
+  border-radius: 22px;
+  padding: 35px 28px;
+  width: 100%;max-width: 410px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(255,204,0,0.25), 0 15px 50px rgba(0,0,0,0.9);
+  animation: fadeIn 0.8s ease;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* GLOWING TRUCK CIRCLE */
+.logo-circle{
+  width: 155px;height: 155px;
+  border-radius: 50%;
+  margin: 0 auto 18px;
+  border: 3px solid #ffcc00;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 0 25px rgba(255,204,0,0.7), 0 0 50px rgba(255,140,0,0.3);
+  position: relative;
+  animation: glowPulse 2.5s infinite alternate;
+}
+@keyframes glowPulse{
+  0%{box-shadow:0 0 20px rgba(255,204,0,0.5)}
+  100%{box-shadow:0 0 35px rgba(255,204,0,0.9),0 0 60px rgba(255,140,0,0.4)}
+}
+.logo-circle img{
+  width: 100%;height: 100%;
+  object-fit: cover;
+  transition: 0.5s;
+}
+.logo-circle:hover img{transform:scale(1.1)}
+
+.card h1{
+  color: #ffcc00;
+  font-size: 29px;font-weight: 800;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 10px rgba(255,204,0,0.4);
+}
+.card .sub{
+  color: #aaa;font-size: 12px;margin: 6px 0 28px;letter-spacing:0.3px;
+}
+
+/* BEAUTIFUL INPUTS */
+.input-box{
+  position: relative;
+  margin: 16px 0;
+  display: flex;align-items: center;
+  background: linear-gradient(180deg,#2a2a2a,#1f1f1f);
+  border-radius: 14px;
+  border: 1px solid #333;
+  transition: 0.3s;
+}
+.input-box:focus-within{
+  border-color:#ffcc00;
+  box-shadow:0 0 12px rgba(255,204,0,0.3);
+}
+.input-box .icon{
+  padding-left: 14px;font-size: 15px;opacity:0.8;
+}
+.input-box input{
+  width: 100%;padding: 16px 45px 16px 12px;
+  background: transparent;border: none;
+  color: white;font-size: 14px;outline: none;
+}
+.eye-btn{
+  position: absolute;right: 14px;cursor: pointer;
+  font-size: 20px;color: #888;transition:0.2s;
+}
+.eye-btn:hover{color:#ffcc00;transform:scale(1.1)}
+
+/* FORGOT PASSWORD - BEAUTIFUL */
+.forgot-wrap{text-align:right;margin:-6px 0 14px}
+.forgot-btn{
+  background: none;border: none;
+  color: #ffcc00;font-size: 12.5px;
+  cursor: pointer;text-decoration: none;
+  font-weight: 600;letter-spacing:0.3px;
+  transition:0.2s;
+}
+.forgot-btn:hover{color:#fff;text-shadow:0 0 8px #ffcc00}
+
+/* LOGIN BUTTON - PREMIUM GOLD */
+.btn-login{
+  width: 100%;padding: 15px;margin-top: 10px;
+  border-radius: 14px;border: none;
+  background: linear-gradient(90deg,#ffcc00,#ff9900);
+  color: #000;font-weight: 800;font-size: 16px;
+  letter-spacing:1px;cursor: pointer;
+  box-shadow:0 5px 20px rgba(255,165,0,0.4);
+  transition:0.3s;
+}
+.btn-login:hover{
+  transform: translateY(-2px);
+  box-shadow:0 8px 30px rgba(255,165,0,0.6);
+  background: linear-gradient(90deg,#ffdd33,#ffaa33);
+}
+.btn-login:active{transform:translateY(0)}
+
+.links{margin-top:22px;font-size:12.5px;line-height:1.8}
+.links a{color:#ffcc00;text-decoration:none;font-weight:600}
+.links a:hover{text-decoration:underline}
+.links .back{color:#777;display:block;margin-top:10px;font-weight:400}
+
+/* FORGOT MODAL - BEAUTIFUL */
+#forgotModal{
+  display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.85);backdrop-filter:blur(5px);
+  z-index:9999;align-items:center;justify-content:center;
+}
+#forgotModal.active{display:flex;animation:fadeIn 0.3s}
+.modal-box{
+  background:linear-gradient(180deg,#161616,#0a0a0a);
+  border:2px solid #ffcc00;border-radius:18px;
+  padding:28px;width:90%;max-width:380px;text-align:center;
+  box-shadow:0 0 40px rgba(255,204,0,0.3);
+}
+.modal-box h3{color:#ffcc00;margin-bottom:8px;font-size:18px}
+.modal-box p{color:#999;font-size:12.5px;margin-bottom:15px;line-height:1.5}
+.modal-box input{
+  width:100%;padding:13px;border-radius:10px;
+  border:1px solid #333;background:#222;color:white;margin:10px 0;outline:none;
+}
+.modal-box input:focus{border-color:#ffcc00}
+.modal-btn{padding:11px 22px;border-radius:10px;border:none;font-weight:700;cursor:pointer;margin:6px;font-size:13px;transition:0.2s}
+.btn-send{background:linear-gradient(90deg,#ffcc00,#ff9900);color:#000}
+.btn-cancel{background:#2a2a2a;color:#ccc}
+.modal-btn:hover{transform:translateY(-1px)}
+.success{color:#25D366;margin-top:12px;display:none;font-size:12.5px;background:rgba(37,211,102,0.1);padding:10px;border-radius:8px;border:1px solid rgba(37,211,102,0.3)}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo-circle">
+    <img src="truck.png" alt="Chester Logistics" onerror="this.src='https://secure-web.cisco.com/14IGTQAZqIv-ey1N89Ns-digt8_v842nUjGT1zlvpFDmAGd1tj3LWR9Zh9YfTyUFCijH2TZIUc5OH5yn4zTTKSSPDuE8T2dJ9j1rNGXkslxnlqycn4z6v5nEqbQk2FLE5R-k0l4gebSBi24sKpkHKxg5-0JN6x3Cp_6ezPDghDW3ar0UtOkt7i3E5p4N9OPoZKcU0hHGgzYCqeK8DZlQvQv4XDbRQZjDQbaRf2v5DcSFpwSLED9ULOfwZtdNhOjeX6uxu7-Gs8cW6sdoINiz66FQehaTtCVVFMRUzmkyrnSMYAaQh_XMJs4uYOY_83zYiqVD_QT5KaWYyvj7hHZC_7A/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1601584115197-04ecc0da31d7%3Fauto%3Dformat%26fit%3Dcrop%26w%3D500%26q%3D80'">
+  </div>
+
+  <h1>CHESTER LOGISTICS</h1>
+  <p class="sub">Secure Login • Login every time for safety</p>
+
+  <div class="input-box">
+    <span class="icon">📧</span>
+    <input type="email" id="email" placeholder="Email address">
+  </div>
+
+  <div class="input-box">
+    <span class="icon">🔒</span>
+    <input type="password" id="password" placeholder="Password">
+    <span class="eye-btn" onclick="togglePassword()" id="eye">👁️</span>
+  </div>
+
+  <div class="forgot-wrap">
+    <button class="forgot-btn" onclick="openForgot()">Forgot password?</button>
+  </div>
+
+  <button class="btn-login" onclick="doLogin()">LOGIN →</button>
+
+  <div class="links">
+    <a href="signup.html">No account? Create account here</a>
+    <a class="back" href="index.html">← Back to website (will ask login)</a>
+  </div>
+</div>
+
+<div id="forgotModal">
+  <div class="modal-box">
+    <h3>🔑 Forgot Password</h3>
+    <p>Enter your email. We will send reset link via Email & WhatsApp.<br>Or contact: <b style="color:#fff">065 581 2089</b></p>
+    <input type="email" id="resetEmail" placeholder="Enter your email">
+    <div>
+      <button class="modal-btn btn-send" onclick="sendReset()">Send Reset Link</button>
+      <button class="modal-btn btn-cancel" onclick="closeForgot()">Cancel</button>
+    </div>
+    <div class="success" id="successMsg">✅ Reset link sent! Check email. Quick login: <b>admin@chester.co.za / 1234</b></div>
+  </div>
+</div>
+
+<script>
+function togglePassword(){
+  let p=document.getElementById('password');
+  let eye=document.getElementById('eye');
+  if(p.type==='password'){p.type='text';eye.textContent='🙈';}
+  else{p.type='password';eye.textContent='👁️';}
+}
+  
+function doLogin(){
+  let e=document.getElementById('email').value.trim();
+  let pw=document.getElementById('password').value.trim();
+
+  // SET YOUR REAL PASSWORD HERE BOSS
+  let correctEmail = 'chester@chesterlogistics.co.za';
+  let correctPassword = 'Chester@2024!';
+
+  if(e === '' || pw === ''){
+    alert('Enter email and password Boss!');
+    return;
+  }
+
+  if(e === correctEmail && pw === correctPassword){
+    sessionStorage.setItem('chester_logged','true');
+    window.location.href='index.html';
+  } else {
+    alert('❌ Wrong email or password! please try again.');
+  }
+}
+
+function openForgot(){
+  document.getElementById('forgotModal').classList.add('active');
+  document.getElementById('resetEmail').value=document.getElementById('email').value;
+}
+function closeForgot(){
+  document.getElementById('forgotModal').classList.remove('active');
+  document.getElementById('successMsg').style.display='none';
+}
+function sendReset(){
+  let email=document.getElementById('resetEmail').value;
+  if(!email){alert('Enter email first');return;}
+  document.getElementById('successMsg').style.display='block';
+  setTimeout(()=>{window.open('https://secure-web.cisco.com/1YanKy30_d6wdl_0LpMtA_nNlh8BZwv1tOQc21Mgufhnn1UG4aoXrhDvliipQianifwqHarZF4tQaddHnES8w4mARlIm7zviHqgxOAYeZI_xWOYzzLtwhk74IdpURZFf6WZGVJ8ly6vJiMSk37c9jiKbomDYzxcerVOkhYGrDk29kdrLSBpWCme04yntLROqxX7Py2F4T6cg45bV4r4QHSsnQauw9nwTc5w49NY36UZ0fxyo3f28HAH2AP5rOba744hyBkYII3LCPOLYCtBkkipxIhwcyJ7dSJ62ngDmUVtd_LhvPO7GLQXczaytzS8DT9oKoAdZgtqm-QnudT3n5gQ/https%3A%2F%2Fwa.me%2F27655812089%3Ftext%3DHi%2520Chester%2520I%2520forgot%2520password%2520for%2520%27%2BencodeURIComponent%28email%29%2C%27_blank%27%29%3B')},800);
+}
+document.getElementById('forgotModal').addEventListener('click',function(e){if(e.target===this)closeForgot();});
+</script>
+
+</body>
+</html>

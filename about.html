@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Chester Logistics Pty Ltd</title>
+  <style>
+
+.logout{background:#111;color:white;padding:10px 18px;border-radius:30px;border:none;cursor:pointer}
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4 url('https://secure-web.cisco.com/1l4mv-Ezcd2TZWI96ZibCOnvj-2kclWZCx2K3yE-2plA8Ax5fdophDFqrUjc1cAKRcpettMzbfkg0az1-1z3MWopwKkF2XJDGA210JHA9HgSZwswZ8yRHExpsZXYmtU-5qdGSaAkDh_lpP2YCF-qAVX2OcfWcSvh5nPhD5r25BM6P8ZPLHA-Yk6fxbneILLm6_eFlumh2Wf502Ix-3HixstDq3zJ5_anrCCOlTGysNKSJS6fw9LbFLpADw-s6fFBxW7gKt3zfoBA66oFgxGNqzXhffxT3EAq2CrItS9FldNswmf-EJlu9UT2wjdrXAU-a9jiuzP-LgEqMuFtR1L6oDNl682R3unpl8E-53TV3TgM/https%3A%2F%2Fwww.transparenttextures.com%2Fpatterns%2Fcubes.png%26%2339');
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background: #FF5722;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 { margin: 0; font-size: 20px; }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+    }
+    nav a:hover, nav a.active { text-decoration: underline; }
+    
+    .container { padding: 40px 30px; max-width: 900px; margin: auto; }
+    .container h2 { font-size: 32px; text-align: center; margin-bottom: 30px; }
+    
+    .about-box {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      border-left: 5px solid #FF5722;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .about-box h3 {
+      margin-top: 0;
+      color: #FF5722;
+      font-size: 22px;
+    }
+    .about-box ul {
+      padding-left: 20px;
+    }
+    .about-box li {
+      margin: 10px 0;
+    }
+    
+    .cta {
+      text-align: center;
+      margin-top: 30px;
+      padding: 30px;
+      background: #FF5722;
+      color: white;
+      border-radius: 10px;
+    }
+    .cta a {
+      display: inline-block;
+      background: white;
+      color: #FF5722;
+      padding: 12px 25px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .cta a:hover { background: #f4f4f4; }
+    
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #222;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>CHESTER LOGISTICS PTY LTD</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="contact.html">Contact</a>
+      <a href="services.html">Services</a>
+      <a href="about.html" class="active">About Us</a>
+      <button class="logout" onclick="sessionStorage.clear(); window.location.href='login.html';">Logout</button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2 style="text-decoration: underline;">About Chester Logistics</h2>
+    
+    <div class="about-box">
+      <h3>🏢 Our Background</h3>
+      <p>Chester Logistics was established with the vision of providing reliable, efficient, and customer-focused transportation and logistics services. Since its inception, the company has been dedicated to delivering goods safely and on time while maintaining the highest standards of professionalism and integrity.</p>
+      <p>Chester Logistics aims to meet the diverse needs of its clients through dependable service, innovative solutions, and a commitment to excellence. By prioritizing customer satisfaction and operational efficiency, the company continues to build strong relationships and contribute to the success of businesses and communities it serves.</p>
+    </div>
+
+    <div class="about-box">
+      <h3>🎯 Our Motivation</h3>
+      <p>At Chester Logistics, our motivation is driven by the belief that logistics is more than moving goods from one location to another. It is about helping businesses grow, supporting communities, and creating opportunities through dependable transportation services.</p>
+      <p><strong>We are motivated by:</strong></p>
+      <ul>
+        <li>Delivering customer satisfaction through reliable and on-time service</li>
+        <li>Building long-term relationships based on trust, transparency, and professionalism</li>
+        <li>Providing cost-effective logistics solutions tailored to each client's needs</li>
+        <li>Supporting business growth by ensuring goods reach their destinations safely and efficiently</li>
+        <li>Upholding our commitment to our slogan: "Moving Possibilities, Delivering Trust."</li>
+      </ul>
+      <p>Our goal is to become a leading logistics provider known for excellence, reliability, and unwavering dedication to our clients' success.</p>
+    </div>
+
+    <div class="cta">
+      <h3>Ready to work with us?</h3>
+      <p>Let's move your business forward together</p>
+      <a href="contact.html">Contact Us Today</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2026 Chester Logistics Pty Ltd. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>

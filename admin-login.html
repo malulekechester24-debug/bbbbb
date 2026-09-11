@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login - Chester Logistics</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Segoe UI',Arial,sans-serif;min-height:100vh;
+  display:flex;justify-content:center;align-items:center;
+  background:#000;background:linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.95)),url('https://secure-web.cisco.com/1uNNxJjb4zUy5h9joMWXYxGW8CxIQQ7QFknroeP3iqWZeJ6nyZukU3fip9WSNB5WcBrG4iq4NWfnu26cR5oyVkjEAEzt6seftjlTBxCRkLHlHooVVDQ3mVTSgWDMPef5eR3bCywqTgENjx02BTVU8SWRMf3cMcnw1QFZyF1Et8ElXc8BbHf9AVOeLgzZjBS_FEBIgg6ZBdG-J3u6utDBR2Br-Hf1nOjche5UO4p3sk5XcLMnH5vra17MyzHjBrJnWM49YvaBNYxIPyETturJoW250npOwlLqRhP6UnrI-X1wdxJEVpHKIz7LGp-VPzUEjG2Y6D3RAf0XPylzx2rmzuA/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1586528116311-ad8dd3c8310d%3Fauto%3Dformat%26fit%3Dcrop%26w%3D1950%26q%3D80%27');
+  background-size:cover;
+}
+.card{
+  background:#111;width:92%;max-width:400px;padding:35px 28px;
+  border-radius:18px;border:1px solid #222;border-top:4px solid #d4a017;
+  box-shadow:0 0 50px rgba(212,160,23,0.25);
+}
+.card h1{color:white;text-align:center;font-size:24px;letter-spacing:1px}
+.card .sub{color:#666;text-align:center;font-size:12px;margin:8px 0 25px;letter-spacing:2px}
+label{color:#888;font-size:11px;letter-spacing:1px;margin-left:4px}
+input{
+  width:100%;padding:14px 16px;margin:6px 0 14px;
+  background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;color:white;font-size:14px;
+}
+input:focus{border-color:#d4a017;outline:none}
+.show{display:flex;align-items:center;gap:6px;color:#666;font-size:12px;margin-bottom:15px}
+.btn{
+  width:100%;background:#d4a017;color:black;padding:14px;border:none;
+  border-radius:10px;font-weight:bold;font-size:15px;cursor:pointer;letter-spacing:1px;
+}
+.btn:hover{background:white}
+.hint{
+  background:#000;border:1px dashed #333;border-radius:8px;
+  padding:10px;margin-top:18px;text-align:center;
+}
+.hint small{color:#555;font-size:11px;line-height:1.6}
+.links{text-align:center;margin-top:18px;font-size:12px}
+.links a{color:#666;text-decoration:none}
+.links a:hover{color:#d4a017}
+</style>
+</head>
+<body>
+
+<div class="card">
+<h1>CHESTER ADMIN</h1>
+<div class="sub">SUPER ADMIN ACCESS ONLY</div>
+
+<label>ADMIN USERNAME / EMAIL</label>
+<input type="text" id="adminUser" placeholder="admin or malulekchester24@gmail.com">
+
+<label>ADMIN PASSWORD</label>
+<input type="password" id="adminPass" placeholder="••••••••">
+
+<label class="show"><input type="checkbox" onchange="document.getElementById('adminPass').type=this.checked?'text':'password'"> Show Password</label>
+
+<button class="btn" onclick="adminLogin()">LOGIN TO ADMIN PANEL</button>
+
+<div class="hint">
+<small>
+🔐 Super Admin:<br>
+<b style="color:#d4a017">admin / Chester2024!</b><br>
+or<br>
+<b style="color:#d4a017">malulekchester24@gmail.com</b> (any password)<br><br>
+Call: 065 581 2089
+</small>
+</div>
+
+<div class="links">
+<a href="login.html">← Customer Login</a> &nbsp;|&nbsp; <a href="index.html">View Website</a>
+</div>
+</div>
+
+<script>
+function adminLogin(){
+  var u = document.getElementById('adminUser').value.trim();
+  var p = document.getElementById('adminPass').value.trim();
+  
+  // SUPER ADMIN CREDENTIALS
+  const SUPER_USER = "admin";
+  const SUPER_PASS = "Chester2024!";
+  const OWNER_EMAIL = "malulekchester24@gmail.com";
+
+  if((u === SUPER_USER && p === SUPER_PASS) || (u === OWNER_EMAIL)){
+    localStorage.setItem('chester_logged', u);
+    localStorage.setItem('chester_admin', 'true');
+    sessionStorage.setItem('chester_admin', 'true');
+    alert('✅ Welcome Super Admin: '+u);
+    window.location.href='admin.html';
+  } else {
+    alert('❌ Access Denied! Wrong admin username or password.\n\nUse:\nUsername: admin\nPassword: Chester2024!');
+  }
+}
+</script>
+</body>
+</html>

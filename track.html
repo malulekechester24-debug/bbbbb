@@ -1,0 +1,25 @@
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"><title>Track - Chester</title>
+<style>body{background:#f4f6f9;font-family:sans-serif;padding:15px}.card{max-width:420px;margin:auto;background:white;padding:20px;border-radius:20px}input,button{width:100%;padding:14px;border-radius:12px;margin-top:10px}button{background:#0d47a1;color:white;border:none;font-weight:bold}.info{background:#f8faff;padding:12px;border-radius:12px;margin:10px 0}</style>
+<script src="https://secure-web.cisco.com/12oyYMAb9QWzDmHZYOD3ThFl33L7mfCJaFiA--mqj87C7nBJ_hjw_Iendqsp3nfqW4tOBSY-MhGQvpr-acaJqNU2hdF7NqbUmXtQeW_eG8_yRJHKhQcgpl6fI6sua8Fk0IHUzqcnMCgRa4YfUDLZieaMyUwa10AtN076RItNdM6LZ7prWEj9dxFn_bGbHquLAz_KcNUix84fE96OHk8A6KLhMj_kuaHAdZXDk-cwVHquKwi7CN7on6wKvio_pcJhwqE4wHCm7RpNFuksakHsLVp6lvcW_4D__Ii9iFBpZcZOQy_voRlDrg7zP_tO_qbKqH_jjVy5BtWi-XlFvIOzKPQ/https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2F%40supabase%2Fsupabase-js%402"></script>
+</head><body>
+<div class="card">
+<h2>CHESTER <span style="color:#1976d2">LOGISTICS</span></h2>
+<input id="trackNo" placeholder="CHESTER-1001"><button onclick="track()">TRACK NOW</button><div id="result" style="display:none"></div>
+</div>
+<script>
+const SUPABASE_URL = "https://secure-web.cisco.com/1ibGt6HRKP5LKmPNcqT1_I2SANnB4_56R-pwtvHV_k-t-dQjlw-hBuY2tk7GTLr7t2yjEf3OSYeF-6ZuV31SuY0B8PyUlA4DwFR_jY0C5cAf9CwIXN15Auo8QwQcMrcbEIMqItGV5YSKEWrVIzEoSoER_PN_jLlA9-JRk6EH_Wm6v7pM6fWEgAHl7dS7x8MGI-4pqF5VlkwU3NpgGKVfHtOIZLsYuQC3q7lyi0gHuRYsHwGJ7gDtb1P3MgBu7eeSjKlXjd6RCL5uKvESMkxoF08aPf9ZyYFlyW7BnEm9zSQhiVMirlu0S1ANMRdmx2UXCjuO1mPo_no0LMM6ygsw_hQ/https%3A%2F%2Fqxrmrxvfygbfuvnhxxgo.supabase.co";
+const SUPABASE_KEY = "sb_publishable_dWNwCXifnAFzxN5vbmbH1A_SvbfVJg0";
+const supa = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+async function track(){
+  const no = trackNo.value.trim().toUpperCase();
+  const {data, error} = await supa.from('parcels').select('*').eq('trackingNo', no).single();
+  if(error || !data){ alert("Not found: " + no); return; }
+  const stages = ["Order Received","Picked","In Transit","Out for Delivery","Delivered"];
+  let html = `<div style="margin-top:20px"><h3>${data.trackingNo}</h3><b>${data.parcelName}</b> - ${data.customerName}<div class="info">${data.from_city} → ${data.to_city}<br>Driver: ${data.driver}<br>ETA: ${data.eta}</div>`;
+  stages.forEach((s,i)=>{let c=i<data.status?'#4caf50':i==data.status?'#0d47a1':'#ccc'; html+=`<div style="border-left:3px solid ${c};padding:8px 15px;margin-left:5px">${s}</div>`;});
+  html+=`<a href="https://secure-web.cisco.com/1dKUKSc4FlLfB9JiasSXtunxjwyj_9XKnXeUujhJ0MDfeijrUTOvQYpvjOlT_GlGxgA1bi0CxXe038-XmTRESdKw7PPAvFUWQv04LTzzqp3U_yu4gclfcMOzZX-gdtbSJuGHvEVRVNR76tA7aJgmko5biWl-xcAgaU9j2GiVpPyQsHcB0cjsfyMJfFdDptAp6RWfz7k-r8l521oS_oUq2-mSnAeL9sRzgD1mKy95n2hqn34qxwIDfgOwzS-eu3lf2r8daWd_EHaJN1P9-OG73-yT9NJV492xGlslTDzlDIZefKkMqfM586s0fye1etCZ46n48Nx9qfWJ7vdJD3kXSgQ/https%3A%2F%2Fwa.me%2F27655812089%3Ftext%3DTracking ${data.trackingNo}" style="display:block;text-align:center;margin-top:15px;background:#25D366;color:white;padding:12px;border-radius:12px;text-decoration:none;font-weight:bold">💬 WhatsApp</a></div>`;
+  result.style.display='block'; result.innerHTML=html;
+}
+</script>
+</body>
+</html>

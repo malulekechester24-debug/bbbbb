@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Chester Logistics</title>
+<link href="https://secure-web.cisco.com/1ffWf9OMV1Wwcw-1ja6EUDmCxobJkqCOp5GfPnIGrwB3fqlQSDxDwAmFUrq6HbP76iSm4qw-kJdZRw_RS6GklTQ3F2hbbuXBrOylU2RfhrL29iFBvoh0TYKBNME6uHBC3grdbItOR2g90vSZ1sdYheywtNALgJ9POzHcT0RP_AlxjxOu3XcTfdJlydO1D6-TwdYpapOzuAqXM7ha-JfIqn6bUD5HYTjzwDH5Sa0kcEwqyDO_MPKOsdV8kDb0sDWLjy_GUyErAyZaf7TvmHf7epkuPnn6uvkmcbVP6Iw-lnpx2y5Xfzy1vkcLEObiCh3jOgAbWOLcwuAdRa81lfniJ385rDi7ZxwgxYt2wknP-d4E/https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2Ffont-awesome%2F6.0.0%2Fcss%2Fall.min.css" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{height:100vh;display:flex}
+.left{
+ flex:1.2;
+ background: linear-gradient(rgba(0,0,0,0.6), rgba(255,87,34,0.6)), url('https://secure-web.cisco.com/12z7XgkJrD8ohGVRYuJoU6mC9OsiUNcVl9lM1msy1TB7AwDu0MtQ4OTnLM8mUlH3_nQbK9CunVDYGF7GR6oproT0F3tUY7FKTJWMihtJ3z7t0dXIf1QOHJXqyNn-vCDike_ISzsFW8R3bfS-n3ub6C0JpSht-3KQdnhJIrI0MRDLIdAjD8xLYIwylasJnqKIjwkSkHtYbYDWS6scLgCS1lDaQtWprK748vkQ95O5njJ-ZDXKlHOziRGNbbNjbMYOQAmb0ETyrWb33hAgmFBuhbanjGf2WkIhVU1macGiJ9actm7o3vxlMrY8QkhmnqdD4nCeTeaqS_bmljbUXHOskWOajTpyJ8KsS7mLzRkiGjj4/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1586528116311-ad8dd3c8310d%3Fq%3D80%26w%3D1000') center/cover;
+ color:white;
+ display:flex;
+ flex-direction:column;
+ justify-content:space-between;
+ padding:40px;
+}
+.left h1{font-size:42px;line-height:1.1}
+.left h1 span{color:#FF5722}
+.left p{margin-top:15px;opacity:0.9;font-size:16px}
+.features{margin-top:30px}
+.features div{margin:10px 0;display:flex;align-items:center;gap:10px}
+.right{
+ flex:1;
+ background:#f8f9fa;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+}
+.box{
+ background:white;
+ padding:40px;
+ border-radius:25px;
+ width:100%;
+ max-width:380px;
+ box-shadow:0 20px 60px rgba(0,0,0,0.15);
+}
+.logo{color:#FF5722;font-weight:800;letter-spacing:1px;font-size:14px;text-align:center}
+.box h2{text-align:center;margin:10px 0 5px;font-size:26px;color:#111}
+.sub{text-align:center;color:#888;font-size:13px;margin-bottom:25px}
+.input-group{position:relative;margin:12px 0}
+.input-group i{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#aaa}
+input{width:100%;padding:14px 14px 14px 42px;border:1px solid #e5e5e5;border-radius:12px;background:#fafafa;outline:none;transition:0.3s}
+input:focus{border-color:#FF5722;background:white}
+button{width:100%;background:linear-gradient(90deg,#FF5722,#ff7a50);color:white;border:none;padding:14px;border-radius:30px;font-weight:700;margin-top:15px;cursor:pointer;box-shadow:0 8px 20px rgba(255,87,34,0.3);transition:0.3s}
+button:hover{transform:translateY(-2px);box-shadow:0 12px 25px rgba(255,87,34,0.4)}
+.bottom{text-align:center;margin-top:18px;font-size:13px;color:#666}
+.bottom a{color:#FF5722;font-weight:700;text-decoration:none}
+@media(max-width:800px){.left{display:none}}
+</style>
+</head>
+<body>
+
+<div class="left">
+ <h1> <div style="font-weight:800"><i class="fas fa-truck-fast"></i> CHESTER LOGISTICS</div> </h1>
+  <div>
+    <h1>Fast & Safe <br><span>Delivery</span> Across SA</h1>
+    <p>Login to track your parcels, request quotes, and manage deliveries in one place.</p>
+    <div class="features">
+      <div><i class="fas fa-check-circle" style="color:#FF5722"></i> Same Day Delivery</div>
+      <div><i class="fas fa-check-circle" style="color:#FF5722"></i> Live Parcel Tracking</div>
+      <div><i class="fas fa-check-circle" style="color:#FF5722"></i> 24/7 Support</div>
+    </div>
+  </div>
+  <div style="font-size:12px;opacity:0.6">© 2026 Chester Logistics. Alexandra, South Africa.</div>
+</div>
+
+<div class="right">
+<div class="box">
+  <div class="logo">CHESTER LOGISTICS</div>
+  <h2>Please Login</h2>
+  <p class="sub">Please login to your account</p>
+  <form onsubmit="doLogin(event)">
+    <div class="input-group"><i class="fas fa-phone"></i><input type="text" id="phone" placeholder="Phone Number" required></div>
+    <div class="input-group"><i class="fas fa-lock"></i><input type="password" id="password" placeholder="Password" required></div>
+    <button type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
+  </form>
+  <div class="bottom">No account? <a href="register.html">Create one</a></div>
+</div>
+</div>
+
+<script>
+function doLogin(e){
+ e.preventDefault();
+ let users = JSON.parse(localStorage.getItem("chesterUsers") || "[]");
+ let logins = JSON.parse(localStorage.getItem("chesterLogins") || "[]");
+ let phone = document.getElementById("phone").value.trim();
+ let pass = document.getElementById("password").value.trim();
+
+ // Check where user wanted to go before login
+let redirectTo = sessionStorage.getItem("redirectAfterLogin") || "admin.html";
+ 
+// 1. ADMIN LOGIN - SECURE! Must have BOTH phone AND password correct
+if((phone === "0655812089" && pass === "chester2026") || (phone.toLowerCase() === "chester" && pass === "chester2026")){
+    logins.push({name:"ADMIN (You)", phone:phone || "Admin", time: new Date().toLocaleString(),ip:"Admin Login"});
+    localStorage.setItem("chesterLogins", JSON.stringify(logins));
+    sessionStorage.setItem("chesterLoggedIn","yes");
+    sessionStorage.setItem("chesterRole","admin");
+    sessionStorage.removeItem("redirectAfterLogin");
+   
+    alert("✅ Login Successful! Welcome Admin 👑");
+    window.location.href="admin.html";
+    return false;
+}
+ 
+// 2. CUSTOMER LOGIN
+let found = users.find(u => u.phone === phone && u.password === pass);
+if(found){
+    alert("✅ Login Successful! Welcome to CHESTER LOGISTICS");
+    logins.push({name:found.name, phone:found.phone, time: new Date().toLocaleString(),ip:"Customer Login"});
+    localStorage.setItem("chesterLogins", JSON.stringify(logins));
+    sessionStorage.setItem("chesterLoggedIn","yes");
+    sessionStorage.setItem("chesterRole","customer");
+    sessionStorage.setItem("chesterPhone", found.phone);
+   
+    window.location.href="index.html";
+    return false;
+} else {
+    alert("❌ Phone number or password is incorrect!");
+    return false;
+}
+ }
+ 
+</script>
+</body>
+</html>
+

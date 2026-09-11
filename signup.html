@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up - Chester Logistics</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family: 'Segoe UI', Arial, sans-serif}
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  /* SAME BEAUTIFUL BACKGROUND AS LOGIN */
+  background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), 
+              url('https://secure-web.cisco.com/1QArPcr3STmUNYetgLJbH5rWd29JQzbgSzXlMhRE7a-rNxtFnBLsGwEdLwBRpLZEar6m5R4Z4BdH-vMfJoIb_ZPTlXSjxDmL58WepFKukf92gsTIQrL0X57o51XuheyZDXycSvOHljnYH4rUi91cW8ocDLz1aGjFAhVx2pkJHMt7tj4i-woxZ5V33exjED3GVbcA75eKFE8s11cPNgBQtS-_41W-5KM-cAWEIpmm1wv1gNc3XLFPV7rvlVkPZfSoy_OF1P8ZLPfWMrEjF5axMlzSQyt_7phF3nPlNmXbS3wPYpsNsI9mtHRg_N03XUfTlFBsvejD0AWBUtxq7l6RaQQ/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1586528116311-ad8dd3c8310d%3Fq%3D80%26w%3D2070') no-repeat center center/cover;
+}
+.box{
+  background: rgba(17,17,17,0.9);
+  backdrop-filter: blur(10px);
+  border:1px solid #d4a017;
+  padding:35px 30px;
+  border-radius:20px;
+  width:100%;
+  max-width:420px;
+  text-align:center;
+  box-shadow: 0 0 30px rgba(212,160,23,0.3), 0 10px 40px rgba(0,0,0,0.8);
+}
+.logo{font-size:40px;margin-bottom:10px}
+h2{color:#d4a017;margin-bottom:5px;letter-spacing:1px}
+.subtitle{font-size:13px;color:#aaa;margin-bottom:20px}
+input{
+  width:100%;
+  padding:13px 15px;
+  margin:8px 0;
+  border-radius:10px;
+  border:1px solid #333;
+  background:rgba(34,34,34,0.9);
+  color:#fff;
+  outline:none;
+  transition:0.3s;
+}
+input:focus{border-color:#d4a017;box-shadow:0 0 8px rgba(212,160,23,0.5)}
+button{
+  width:100%;
+  padding:13px;
+  background:linear-gradient(135deg, #d4a017, #ffcc33);
+  color:#000;
+  font-weight:bold;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  margin-top:15px;
+  font-size:15px;
+  transition:0.3s;
+}
+button:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(212,160,23,0.4)}
+a{color:#d4a017;text-decoration:none;display:block;margin-top:16px;font-size:14px}
+a:hover{text-decoration:underline}
+.error{color:#ff5555;margin-top:12px;font-size:13px;display:none;background:rgba(255,0,0,0.1);padding:8px;border-radius:6px}
+.success{color:#55ff55;margin-top:12px;font-size:13px;display:none;background:rgba(0,255,0,0.1);padding:8px;border-radius:6px}
+.divider{margin:20px 0;height:1px;background:linear-gradient(to right, transparent, #333, transparent)}
+.row{display:flex;gap:10px}
+.row input{flex:1}
+</style>
+</head>
+<body>
+
+<div class="box">
+<div class="logo">🚛</div>
+<h2>JOIN CHESTER</h2>
+<p class="subtitle">Create account - Secure logistics solutions</p>
+
+<div class="row">
+<input type="text" id="firstName" placeholder="First Name">
+<input type="text" id="lastName" placeholder="Last Name">
+</div>
+
+<input type="email" id="email" placeholder="📧 Email address">
+<input type="tel" id="phone" placeholder="📱 Phone number">
+<input type="password" id="pass" placeholder="🔒 Create Password (min 4)">
+<input type="password" id="pass2" placeholder="🔒 Confirm Password">
+
+<button type="button" onclick="doSignup()">CREATE ACCOUNT →</button>
+
+<div id="err" class="error"></div>
+<div id="ok" class="success"></div>
+
+<div class="divider"></div>
+
+<a href="login.html">Already have account? LOGIN here</a>
+<a href="index.html" style="color:#777;font-size:12px">← Back to website</a>
+</div>
+
+<script>
+function doSignup(){
+  var fName = document.getElementById('firstName').value.trim();
+  var lName = document.getElementById('lastName').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var phone = document.getElementById('phone').value.trim();
+  var pass = document.getElementById('pass').value.trim();
+  var pass2 = document.getElementById('pass2').value.trim();
+  var errEl = document.getElementById('err');
+  var okEl = document.getElementById('ok');
+
+  errEl.style.display='none';
+  okEl.style.display='none';
+
+  if(!fName || !email || !pass){
+    errEl.style.display='block';
+    errEl.innerText='⚠️ Please fill First Name, Email and Password';
+    return;
+  }
+  if(pass.length < 4){
+    errEl.style.display='block';
+    errEl.innerText='⚠️ Password must be at least 4 characters';
+    return;
+  }
+  if(pass !== pass2){
+    errEl.style.display='block';
+    errEl.innerText='❌ Passwords do not match';
+    return;
+  }
+
+  var users = JSON.parse(localStorage.getItem('chester_users') || '[]');
+  
+  if(users.find(u => u.email.toLowerCase() === email.toLowerCase())){
+    errEl.style.display='block';
+    errEl.innerText='❌ Account already exists with ' + email + '. Please LOGIN.';
+    return;
+  }
+
+  // Save new user
+  users.push({
+    firstName: fName,
+    lastName: lName,
+    email: email,
+    phone: phone,
+    pass: pass,
+    created: new Date().toISOString()
+  });
+
+  localStorage.setItem('chester_users', JSON.stringify(users));
+
+  okEl.style.display='block';
+  okEl.innerText='✅ Account created for ' + email + '! Redirecting to login...';
+  
+  document.querySelector('button').innerText='✅ Created! Please wait...';
+
+  setTimeout(function(){
+    window.location.href = 'login.html';
+  }, 1500);
+}
+</script>
+
+</body>
+</html>
